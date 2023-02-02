@@ -1,0 +1,7 @@
+<div>
+  <center>
+    <h1><%= @campaign.name %></h1>
+    <h3>Total Donors: <%= @campaign.donors.count %></h3>
+    <h3>Total Donations: <%= number_to_currency(@campaign.total_donations, precision: 2) %></h3>
+  </center>
+</div>
