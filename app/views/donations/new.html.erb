@@ -3,5 +3,27 @@
     <h1><%= @campaign.name %></h1>
     <h3>Total Donors: <%= @campaign.donors.count %></h3>
     <h3>Total Donations: <%= number_to_currency(@campaign.total_donations, precision: 2) %></h3>
+
+    <br /><br /><br /><br />
+
+    <%= form_for ([@campaign, @donation]) do |f| %>
+      <strong><%= f.label :donation_amount %></strong>
+      <%= f.number_field :amount %><br /><br /><br /><br />
+
+      <p>To match donations, please select a match type, amount, and limit:</p>
+      <%= f.fields_for :match do |match_f| %>
+        <strong><%= match_f.label :match_kind %></strong><br />
+        <%= match_f.radio_button :kind, :dollar %> Dollar match<br />
+        <%= match_f.radio_button :kind, :donor %> Donor match<br /><br />
+
+        <strong><%= match_f.label :match_amount %></strong>
+        <%= match_f.number_field :amount %><br /><br />
+
+        <strong><%= match_f.label :limit %></strong>
+        <%= match_f.number_field :remaining_balance %> (number of donors OR donation amount)<br /><br />
+      <% end %>
+      <br /><br />
+      <%= f.submit "Donate" %>
+    <% end %>
   </center>
 </div>
